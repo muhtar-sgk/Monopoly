@@ -5,6 +5,7 @@
  */
 package monopoly.model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -16,6 +17,7 @@ public class Player {
     String position;
     String property;
     int amount;
+    ArrayList<String> propertyUserList;
 
     public Player(String name, String position, String property, int amount) {
         this.name = name;
@@ -38,5 +40,28 @@ public class Player {
 
     public int getAmount() {
         return amount;
+    }
+    
+    public void buy(String property, int type, int amountUser, 
+            int amountProperty) {
+        if(type == 1) {
+            if(amountUser > amountProperty) {
+                propertyUserList = new ArrayList<>();
+                propertyUserList.add(property);
+            } else {
+                System.out.println("You can't buy this property");
+            }
+        } else {
+            System.out.println("You can't buy this space");
+        }
+    }
+    
+    public ArrayList<String> getListUserProperties() {
+        return propertyUserList;
+    }
+    
+    public int setLastAmount(int amoutUser, int amountProperty) {
+        int resultAmount = amoutUser - amountProperty;
+        return resultAmount;
     }
 }

@@ -28,7 +28,7 @@ public class Main {
         tiles.add(new Tile("Mulai", 0, 3));
         tiles.add(new Tile("Monas", 1000, 1));
         tiles.add(new Tile("Dana Umum", 500, 0));
-        tiles.add(new Tile("Taman Mini", 10000, 1));
+        tiles.add(new Tile("Taman Mini", 1000, 1));
         tiles.add(new Tile("Pajak Jalan", 1000, 0));
         tiles.add(new Tile("Bandara Kemayoran", 500000, 0));
         tiles.add(new Tile("Ragunan Pasar Minggu", 20000, 1));
@@ -65,25 +65,44 @@ public class Main {
         tiles.add(new Tile("Danau Toba", 50000, 1));
         tiles.add(new Tile("Pajak Istimewa", 5000, 0));
         tiles.add(new Tile("Brastagi", 5000, 1));
-        
+                
         Scanner sc = new Scanner(System.in);
         String command = sc.next();
                 
         if(command.equals("Throw")) {
            Random random = new Random();
-           int randomInt = random.nextInt(6);
-           int randomInt2 = random.nextInt(6);
+           int randomInt = random.nextInt((6-1)+1);
+           int randomInt2 = random.nextInt((6-1)+1);
            int resultRandom = (randomInt) + (randomInt2);
            System.out.println(randomInt + " " + randomInt2);
            System.out.println(resultRandom);
-           
+          
            Player player = new Player("Player 1", 
                    tiles.get(resultRandom).getName(),
-                   tiles.get(resultRandom).getName(), tiles.get(resultRandom).getPrice());
+                   tiles.get(resultRandom).getName(), 
+                   30000);
            System.out.println(player.getName()+": " + player.getAmount() 
                    + " ("+resultRandom+")");
            System.out.println("Position: " + player.getPosition());
-           System.out.println("Property\n" + player.getProperty());
+           
+           String buy = sc.next();
+           
+           if(buy.equals("Buy")) {
+               player.buy(player.getPosition(), tiles.get(resultRandom).getType(),
+                       player.getAmount(), tiles.get(resultRandom).getPrice());
+                              if(player.getListUserProperties() != null) {
+
+               System.out.println(player.getName()+": " + player
+                       .setLastAmount(player.getAmount(), 
+                               tiles.get(resultRandom).getPrice())
+                   + " ("+resultRandom+")");
+               System.out.println("Position: " + player.getPosition());
+               System.out.println("Property:");
+                   for(int i = 0; i < player.getListUserProperties().size(); i++) {
+                       System.out.println("-    "+player.getListUserProperties().get(i));
+                   }
+               }
+           }           
         } else {
             System.out.println("Command wrong");
         }
